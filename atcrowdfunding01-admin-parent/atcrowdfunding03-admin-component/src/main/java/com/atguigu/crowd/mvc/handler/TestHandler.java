@@ -3,6 +3,7 @@ package com.atguigu.crowd.mvc.handler;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,11 @@ public class TestHandler {
 	
 	private Logger logger = LoggerFactory.getLogger(TestHandler.class);
 	
+	@RequestMapping("/login.html")
+	public String Login() {
+		return "admin-login";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/send/compose/object.json")
 	public ResultEntity<Student> testReceiveComposeObject(@RequestBody Student student, HttpServletRequest request) {
@@ -44,7 +50,7 @@ public class TestHandler {
 		
 		String a = null;
 		
-		System.out.println(a.length());
+		System.out.println("**************"+resultEntity+"*************");
 		
 		return resultEntity;
 	}
@@ -95,11 +101,24 @@ public class TestHandler {
 		
 		modelMap.addAttribute("adminList", adminList);
 		
-		String a = null;
-		
-		System.out.println(a.length());
+		int a = 1/0;
 		
 		return "target";
+	}
+	
+	//登录
+	@RequestMapping("/admin/do/login.html")
+	public String doLogin(@RequestParam("loginAcct") String loginAcct,@RequestParam("userPswd") String userPswd, HttpSession session) {
+		Admin admin = adminService.getAdminByLoginAcct(loginAcct, userPswd);
+		session.setAttribute("Login_Admin", admin);
+		return "redirect:/admin/to/main/page.html";
+	}
+	
+	//退出登录
+	@RequestMapping("admin/do/logout.html")
+	public String doLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/admin/to/login/page.html";
 	}
 
 }
