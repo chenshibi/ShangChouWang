@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.atguigu.crowd.exception.AccessForbiddenException;
 import com.atguigu.crowd.exception.LoginFailedException;
 import com.atguigu.crowd.util.CrowdUtil;
 import com.atguigu.crowd.util.ResultEntity;
 import com.google.gson.Gson;
 
 // @ControllerAdvice表示当前类是一个基于注解的异常处理器类
+//当捕获了相关的异常类就到这里进行处理
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
@@ -93,5 +95,13 @@ public class CrowdExceptionResolver {
 		return commonResolve(viewName, exception, request, response);
 
 	}
+
+	@ExceptionHandler(value = AccessForbiddenException.class)
+	public ModelAndView resolveAccessForbiddenException(AccessForbiddenException exception, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String viewName = "admin-login";
+		return commonResolve(viewName, exception, request, response);
+	}
+	
 
 }

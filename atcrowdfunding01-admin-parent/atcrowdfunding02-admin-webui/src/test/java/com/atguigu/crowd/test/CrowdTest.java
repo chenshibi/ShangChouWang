@@ -78,5 +78,12 @@ public class CrowdTest {
 		Connection connection = dataSource.getConnection();
 		System.out.println(connection);
 	}
+	
+	@Test
+	public void test() {
+		for (int i = 2; i < 248; i++) {
+			adminMapper.insert(new Admin(null, "周正芳", "e10adc3949ba59abbe56e057f20f883e", "周正芳", "2213778308@qq.com", "20201014"));
+		}
+	}
 
 }

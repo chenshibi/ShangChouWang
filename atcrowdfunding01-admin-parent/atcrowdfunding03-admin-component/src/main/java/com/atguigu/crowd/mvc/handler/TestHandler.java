@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.atguigu.crowd.constant.CrowdConstant;
 import com.atguigu.crowd.entity.Admin;
 import com.atguigu.crowd.entity.ParamData;
 import com.atguigu.crowd.entity.Student;
 import com.atguigu.crowd.service.api.AdminService;
 import com.atguigu.crowd.util.CrowdUtil;
 import com.atguigu.crowd.util.ResultEntity;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 public class TestHandler {
@@ -110,7 +112,7 @@ public class TestHandler {
 	@RequestMapping("/admin/do/login.html")
 	public String doLogin(@RequestParam("loginAcct") String loginAcct,@RequestParam("userPswd") String userPswd, HttpSession session) {
 		Admin admin = adminService.getAdminByLoginAcct(loginAcct, userPswd);
-		session.setAttribute("Login_Admin", admin);
+		session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN, admin);
 		return "redirect:/admin/to/main/page.html";
 	}
 	
@@ -120,5 +122,15 @@ public class TestHandler {
 		session.invalidate();
 		return "redirect:/admin/to/login/page.html";
 	}
+//	
+//	@RequestMapping("/admin/get/page.html")
+//	public String getPageInfo(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+//			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+//			@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, ModelMap map) {
+//		PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
+//		map.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
+//		return "admin-page";
+//
+//	}
 
 }

@@ -12,6 +12,8 @@ import com.atguigu.crowd.exception.LoginFailedException;
 import com.atguigu.crowd.mapper.AdminMapper;
 import com.atguigu.crowd.service.api.AdminService;
 import com.atguigu.crowd.util.CrowdUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -52,5 +54,14 @@ public class AdminServiceImpl implements AdminService {
 		return admin;
 
 	}
+
+	@Override
+	public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Admin> list = adminMapper.selectAdminByKeyWord(keyword);
+		return new PageInfo<>(list);
+	}
+
+	
 
 }
