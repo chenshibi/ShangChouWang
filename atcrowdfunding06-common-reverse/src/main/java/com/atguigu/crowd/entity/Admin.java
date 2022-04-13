@@ -3,10 +3,13 @@ package com.atguigu.crowd.entity;
 public class Admin {
     private Integer id;
 
+    //登录
     private String loginAcct;
 
+    //密码
     private String userPswd;
 
+    //用户
     private String userName;
 
     private String email;

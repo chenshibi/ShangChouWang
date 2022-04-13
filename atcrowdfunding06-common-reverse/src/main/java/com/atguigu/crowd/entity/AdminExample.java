@@ -6,8 +6,10 @@ import java.util.List;
 public class AdminExample {
     protected String orderByClause;
 
+    //磁盘空间
     protected boolean distinct;
 
+    //oreeCriteria
     protected List<Criteria> oredCriteria;
 
     public AdminExample() {
